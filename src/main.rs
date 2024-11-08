@@ -59,6 +59,7 @@ fn test_parse_pair() {
 /// Parse a pair of floating-point numbers separated by a comma as a complex
 /// number.
 fn parse_complex(s: &str) -> Option<Complex<f64>> {
+    #[allow(clippy::manual_map)]
     match parse_pair(s, ',') {
         Some((re, im)) => Some(Complex { re, im }),
         None => None
@@ -145,7 +146,7 @@ fn write_image(filename: &str, pixels: &[u8], bounds: (usize, usize))
     let output = File::create(filename)?;
 
     let encoder = PngEncoder::new(output);
-    encoder.write_image(&pixels,
+    encoder.write_image(pixels,
                    bounds.0 as u32, bounds.1 as u32,
                    ExtendedColorType::L8)?;
 
